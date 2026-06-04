@@ -1,3 +1,39 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body {
+    margin: 0;
+    padding: 0;
     background: transparent;
+    overflow: hidden;
+    -webkit-app-region: drag;
+    color: rgb(255,255,255);
+    font-family: 'Courier New', Menlo, Monaco, 'SF Mono', monospace;
+}
+
+.widget {
+    width: 300px;
+    height: 100px;
+    padding: 15px;
+    background: rgba(22, 23, 40, 0.75);
+    box-sizing: border-box;
+
+    border-radius: 8px;
+    overflow: hidden;
+
+    backdrop-filter: blur(4px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+#atlas-speech {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #ffffff;
 }
