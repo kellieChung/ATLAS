@@ -1,5 +1,5 @@
-const speechElement = document.getElementById("atlas-speech");
+const displayElement = document.getElementById("atlas-speech");
 
-window.electronAPI.onMessageReceived((text) => {
-    speechElement.innerText = text;
+window.electronAPI.onMessageReceived((payload) => {
+    displayElement.innerText = payload.text;
 });
