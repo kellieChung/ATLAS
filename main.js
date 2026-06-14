@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require("electron")
+const {app, BrowserWindow, ipcMain} = require("electron")
 
 const path = require("path");
 
@@ -22,6 +22,15 @@ const createWindow = () => {
   win.loadFile("src/html/index.html")
   win.webContents.on("did-finish-load", () => {
     checkWeather()
+  });
+
+  ipcMain.on("resize-window", (event, {width, height}) => {
+    if (win) {
+      win.setBounds({
+        width: width, 
+        height: Math.ceil(height) + 4
+      });
+    };
   });
 
   setInterval(checkWeather, 15 * 60 * 1000);

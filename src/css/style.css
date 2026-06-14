@@ -14,7 +14,7 @@ body {
 
 .widget {
     width: 300px;
-    height: 130px;
+    height: auto;
     padding: 16px 18px;
     background: rgba(22, 23, 40, 0.75);
     box-sizing: border-box;
