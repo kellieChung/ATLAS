@@ -14,8 +14,8 @@ body {
 
 .widget {
     width: 300px;
-    height: 100px;
-    padding: 15px;
+    height: 130px;
+    padding: 16px 18px;
     background: rgba(22, 23, 40, 0.75);
     box-sizing: border-box;
 
@@ -36,9 +36,38 @@ body {
 }
 
 #display {
-    margin-top: 10px;
-    margin-bottom: 0;
+    margin: 0;
     font-size: 16px;
     line-height: 1.5;
     color: #ffffff;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid rgba(0, 210, 255, 0.2);
+    margin: 8px 0;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.prompt {
+    color: #00d2ff;
+    margin-right: 6px;
+    font-weight: bold;
+}
+
+#user-input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: monospace;
+    font-size: 13px;
+    width: 100%;
+    outline: none;
 }
