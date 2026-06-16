@@ -23,6 +23,12 @@ const createWindow = () => {
     if (command === "weather") {
       await checkWeather();
     }
+    else if (command === "home") {
+      win.webContents.send("atlas-message", {
+        type: "text",
+        text: "Welcome home! Type \"weather\" to check the local forecast."
+      });
+    }
     else {
       win.webContents.send("atlas-message", {
         type: "alert",
@@ -33,13 +39,15 @@ const createWindow = () => {
 
   ipcMain.on("resize-window", (event, {width, height}) => {
     if (win) {
+      const safeHeight = height && height > 50? Math.ceil(height) + 4: 120;
       win.setBounds({
         width: width, 
-        height: Math.ceil(height) + 4
+        height: safeHeight
       });
     };
   });
 
+  win.loadFile(path.join(__dirname, "src/html/index.html"));
   win.show()
 }
 
@@ -71,7 +79,7 @@ async function checkWeather() {
 
   } catch (error) {
       console.error("Telemetry link offline:", error);
-      win.webContents.send('atlas-message', "Unable to secure local weather telemetry.");
+      win.webContents.send('atlas-message', { type: "alert", text: "Unable to secure local weather telemetry." });
   }
 }
 

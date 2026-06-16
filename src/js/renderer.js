@@ -1,4 +1,4 @@
-const displayElement = document.getElementById("atlas-speech");
+const displayElement = document.getElementById("display");
 const inputElement = document.getElementById("user-input");
 
 const container = document.body;
