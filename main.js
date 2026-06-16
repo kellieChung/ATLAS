@@ -19,10 +19,17 @@ const createWindow = () => {
     },
   })
 
-  win.loadFile("src/html/index.html")
-  win.webContents.on("did-finish-load", () => {
-    checkWeather()
-  });
+  ipcMain.on("user-command", async (event, command) => {
+    if (command === "weather") {
+      await checkWeather();
+    }
+    else {
+      win.webContents.send("atlas-message", {
+        type: "alert",
+        text: `UNKNOWN CODE: "${command}"\nAccess denied. Try typing "weather".`
+      });
+    }
+  })
 
   ipcMain.on("resize-window", (event, {width, height}) => {
     if (win) {
@@ -32,8 +39,6 @@ const createWindow = () => {
       });
     };
   });
-
-  setInterval(checkWeather, 15 * 60 * 1000);
 
   win.show()
 }
