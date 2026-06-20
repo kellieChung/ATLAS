@@ -3,6 +3,7 @@ const {app, BrowserWindow, ipcMain} = require("electron")
 const path = require("path");
 
 let win;
+const AiModel = "llama3.2";
 
 const createWindow = () => {
   win = new BrowserWindow({
@@ -30,9 +31,10 @@ const createWindow = () => {
       });
     }
     else {
+      const aiResponse = await askOllama(command);
       win.webContents.send("atlas-message", {
-        type: "alert",
-        text: `UNKNOWN CODE: "${command}"\nAccess denied. Try typing "weather".`
+        type: "list",
+        text: aiResponse
       });
     }
   })
@@ -49,6 +51,39 @@ const createWindow = () => {
 
   win.loadFile(path.join(__dirname, "src/html/index.html"));
   win.show()
+}
+
+async function askOllama(prompt) {
+  try {
+    const url = "http://127.0.0.1:11434/api/chat";
+
+    const payload = {
+      model: AiModel,
+      messages: [
+        { role: "system", content: "You are ATLAS, a tactical desktop terminal assistant. Keep answers short, direct, and under 3 sentences." },
+        { role: "user", content: prompt }
+      ],
+      stream: false
+    };
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) 
+      throw new Error("Ollama endpoint offline");
+    
+    const data = await response.json();
+    
+    return data.message.content;
+
+  } catch (error) {
+    console.error("AI Core Offline: ", error);
+    return "AI Core link offline. Ensure Ollama is running locally via 'ollama serve'."
+
+  }
 }
 
 async function checkWeather() {
