@@ -105,9 +105,12 @@ async function checkWeather() {
 
     const currentCityName = geoData.city || "Unknown Location";
 
+    const AtlasSuggestion = await askOllama(`Current weather in ${currentCityName}: ${currentTemp}°F and ${currentCondition}. ` +
+      `Give me a super short, friendly, 1-sentence tip on what to wear or expect. Under 12 words. No filler.`);
+
     const weatherPayload = {
       type: "list",
-      text: `Location: ${currentCityName}\nTemperature: ${currentTemp}°F\nCondition: ${currentCondition}`
+      text: `Location: ${currentCityName}\nTemperature: ${currentTemp}°F\nCondition: ${currentCondition}\n${AtlasSuggestion}`
     };
 
     win.webContents.send("atlas-message", weatherPayload);
