@@ -1,0 +1,19 @@
+{
+  "code": {
+    "win32": "VSCode.exe",
+    "darwin": "open -a 'Visual Studio Code'"
+  },
+  "chrome": {
+    "win32": "start chrome",
+    "darwin": "open -a 'Google Chrome'"
+  },
+  
+  "calculator": {
+    "win32": "calc",
+    "darwin": "open -a Calculator"
+  },
+  "spotify": {
+    "win32": "start spotify",
+    "darwin": "open -a Spotify"
+  }
+}
